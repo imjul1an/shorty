@@ -40,7 +40,7 @@ describe('shorterns.spec.js', function () {
 
 		describe('and url is present', function() {
 			beforeEach(function (){
-				payload = {url: 'http://example.com/very-long-url'};
+				payload = { url: 'http://example.com/very-long-url' };
 			});
 
 			beforeEach(function (done){
@@ -59,6 +59,37 @@ describe('shorterns.spec.js', function () {
 			it('should contains shortcode', function(){
 				expect(result.shortcode).to.be.ok;
 			});
+
+			it('should contains shortcode and check for', function(){
+				expect(result.shortcode).to.be.ok;
+			});
 		});
 	});
+	
+	describe('when create request to short the url', function () {
+		beforeEach(function () {
+			url = apiUrl;
+		});
+
+		describe('and generated shortcode is duplicated', function () {
+			beforeEach(function (){
+				payload = { url: 'http://example.com/very-long-url' };
+			});
+
+			beforeEach(function (done) {
+				request.post({url: url, body: payload, json:true}, function (err, res, body) {
+					response = res;
+					result = body;
+					error = err;
+					done(err);
+				});
+			});
+
+			it('should respond 409 (Conflict)', function () {
+				expect(response.statusCode).to.equal(409);
+			})
+		});
+
+	});
+
 });

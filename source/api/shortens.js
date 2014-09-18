@@ -13,6 +13,7 @@ function shortenService(app) {
 		next();
 	}
 
+
 	function shortify (req, res, next) {
 		// shortify logic goes here.
 		var shortcode = 'http://bit.ly/1uK7tms';
