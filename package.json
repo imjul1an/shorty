@@ -1,0 +1,30 @@
+{
+  "name": "shorty",
+  "version": "1.0.0",
+  "description": "Shortner a new way of generating short version of huge link",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.9.2",
+    "mongojs": "^0.14.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.4"
+  },
+  "scripts": {
+    "test": "node test/run.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gymia/shorty.git"
+  },
+  "author": "julian.ustiyanovych@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gymia/shorty/issues"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "homepage": "https://github.com/gymia/shorty"
+}
