@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.9.2",
-    "mongojs": "^0.14.1"
+    "mongojs": "^0.14.1",
+    "util": "^0.10.3"
   },
   "devDependencies": {
     "chai": "^1.9.1",
