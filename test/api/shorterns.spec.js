@@ -2,7 +2,7 @@ var request = require('request');
 var testUtils = require('../utils');
 
 describe('shorterns.spec.js', function () {
-	var apiUrl, url, payload, headers, error, response, result;
+	var apiUrl, url, payload, headers, error, response, result, body;
 
 	beforeEach(function () {
 		apiUrl = testUtils.getRootUrl() + '/api/shorten';
@@ -46,7 +46,7 @@ describe('shorterns.spec.js', function () {
 			beforeEach(function (done){
 				request.post({url: url, body: payload, json:true}, function (err, res, body) {
 					response = res;
-					body = body;
+					result = body;
 					error = err;
 					done(err);
 				});
@@ -54,6 +54,10 @@ describe('shorterns.spec.js', function () {
 
 			it('should respond 201 (Created)', function () {
 				expect(response.statusCode).to.equal(201);
+			});
+
+			it('should contains shortcode', function(){
+				expect(result.shortcode).to.be.ok;
 			});
 		});
 	});
