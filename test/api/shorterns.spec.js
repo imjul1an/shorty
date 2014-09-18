@@ -29,7 +29,7 @@ describe('shorterns.spec.js', function () {
 		});
 
 		it('should respond 400 (Bad Request)', function () {
-			expect(response.statusCode).to.equel(400);
+			expect(response.statusCode).to.equal(400);
 		});
 
 	});
