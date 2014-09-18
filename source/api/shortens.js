@@ -1,5 +1,7 @@
 "use strict";
 
+var middleware = require('../middleware');
+
 module.exports = shortenService;
 
 function shortenService(app) {
@@ -17,9 +19,7 @@ function shortenService(app) {
 		next();
 	}
 
-
 	function shortify (req, res, next) {
-		// shortify logic goes here.
 		var shortcode = 'http://bit.ly/1uK7tms';
 		res.json(201, {shortcode: shortcode});
 	}
