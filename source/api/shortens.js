@@ -1,6 +1,7 @@
 "use strict";
 
 var middleware = require('../middleware');
+var shortcodes = require('../models/shortcodes');
 
 module.exports = shortenService;
 
@@ -20,7 +21,32 @@ function shortenService(app) {
 	}
 
 	function shortify (req, res, next) {
-		var shortcode = 'http://bit.ly/1uK7tms';
-		res.json(201, {shortcode: shortcode});
+		var url = req.body.url;
+		var shortcode = req.body.shortcode;
+
+		if(shortcode) {
+			shortcodes.findByCode(shortcode, function(err, shortcode) {
+				if (err) {
+					return next (err);
+				}
+				if (shortcode) {
+					return next({message: 'desired shortcode is already in use', status: 409});
+				}
+			});
+		}
+
+		generate();
+
+		function generate() {
+			middleware.generator.generate(function (err, shortcode) {
+				shortcodes.create(url, {shortcode: shortcode}, function (err, shortcode) {
+					if (err) {
+						return next(err);
+					}
+
+					res.json(201, {shortcode: shortcode});
+				});
+			});
+		}
 	}
 }

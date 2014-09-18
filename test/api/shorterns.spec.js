@@ -8,7 +8,7 @@ describe('shorterns.spec.js', function () {
 		apiUrl = testUtils.getRootUrl() + '/api/shorten';
 	});
 
-	describe('when create request to short the url', function () {
+	describe('when create request to shortify the url', function () {
 		beforeEach(function(){
 			url = apiUrl;
 		});
@@ -33,7 +33,7 @@ describe('shorterns.spec.js', function () {
 		});
 	});
 
-	describe('when create request to short the url', function () {
+	describe('when create request to shortify the url', function () {
 		beforeEach(function(){
 			url = apiUrl;
 		});
@@ -66,14 +66,14 @@ describe('shorterns.spec.js', function () {
 		});
 	});
 	
-	describe('when create request to short the url', function () {
+	describe('when create request to shortify the url', function () {
 		beforeEach(function () {
 			url = apiUrl;
 		});
 
 		describe('and generated shortcode is duplicated', function () {
 			beforeEach(function (){
-				payload = { url: 'http://example.com/very-long-url' };
+				payload = { url: 'http://example.com/coll-url', shortcode: '1uK7tms'};
 			});
 
 			beforeEach(function (done) {
@@ -87,7 +87,7 @@ describe('shorterns.spec.js', function () {
 
 			it('should respond 409 (Conflict)', function () {
 				expect(response.statusCode).to.equal(409);
-			})
+			});
 		});
 
 	});

@@ -12,8 +12,8 @@ module.exports = {
 	findByCode: findByCode
 };
 
-function create (shortcode, callback) {
-	var ext =  { startDate: moment().toDate(), lastSeenDate: moment().toDate(), redirectCount: 0};
+function create (url, shortcode, callback) {
+	var ext =  { url: url, startDate: moment().toDate(), lastSeenDate: moment().toDate(), redirectCount: 0};
 	shortcode = _.extend(shortcode, ext);
 	db.shortcodes.save(shortcode, callback);
 }

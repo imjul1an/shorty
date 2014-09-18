@@ -4,6 +4,6 @@ module.exports = {
 	generate: generate
 };
 
-function generate () {
-	// generation shortcode logic goes here
+function generate (callback) {
+	return callback (null, '1uK7tms');
 }
