@@ -4,14 +4,21 @@
   "description": "Shortner a new way of generating short version of huge link",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.9.2",
+    "colors": "^0.6.2",
+    "connect": "^3.2.0",
+    "express": "^3.3.4",
+    "moment": "^2.8.3",
     "mongojs": "^0.14.1",
+    "requirejs": "^2.1.15",
+    "underscore": "^1.7.0",
     "util": "^0.10.3"
   },
   "devDependencies": {
     "chai": "^1.9.1",
     "mocha": "^1.21.4",
-    "sinon": "^1.10.3"
+    "node-logentries": "^0.1.4",
+    "sinon": "^1.10.3",
+    "underscore": "^1.7.0"
   },
   "scripts": {
     "test": "node test/run.js"

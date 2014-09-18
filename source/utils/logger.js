@@ -38,7 +38,8 @@ var logger = {
 
 	log: function (type, message) {
 		var record = this.timestamptMessage(util.format('%s: %s', type.toUpperCase(), this.formatMessage(message)));
-		console.log(record[this.colorsMap[type]]);
+		// console.log(record[this.colorsMap[type]]);
+		console.log(record);
 	},
 
 	formatMessage: function (message) {
