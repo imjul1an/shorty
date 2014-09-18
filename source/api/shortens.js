@@ -1,3 +1,7 @@
+"use strict";
+
+module.exports = shortenService;
+
 function shortenService(app) {
 	app.post('/api/shorten',
 		validateRequest,
@@ -20,5 +24,3 @@ function shortenService(app) {
 		res.json(201, {shortcode: shortcode});
 	}
 }
-
-module.exports = shortenService;

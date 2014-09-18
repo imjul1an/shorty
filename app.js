@@ -1,3 +1,5 @@
+"use strict";
+
 var http = require('http');
 var middleware = require('./source/middleware');
 var config = require('./config');
