@@ -2,7 +2,20 @@ var request = require('request');
 var testUtils = require('../utils');
 
 describe('shorterns.spec.js', function () {
-	var apiUrl, url, payload, error, response, result;
+	var apiUrl, url, payload, error, response, result, existedShortcode;
+
+	before(function (done) {
+		testUtils.createTestShortCode(function(err, shortcode) {
+			existedShortcode = shortcode;
+			done(err);
+		});
+	});
+
+	after(function (done) {
+		testUtils.clearCollection(function (err) {
+			done(err);
+		});
+	});
 
 	beforeEach(function () {
 		apiUrl = testUtils.getRootUrl() + '/api/shorten';
@@ -24,7 +37,7 @@ describe('shorterns.spec.js', function () {
 
 		describe('with wrong payload', function () {
 			beforeEach(function (){
-				payload = { url: 'http://example.com/very-long-url', shortcode:'1uK7tms'};
+				payload = { url: 'http://example.com/very-long-url', shortcode: existedShortcode.shortcode};
 			});
 
 			beforeEach(function(){
@@ -72,10 +85,10 @@ describe('shorterns.spec.js', function () {
 		});
 	
 		describe('with desired shortcode', function () {
-			describe('and shortcode is duplicated', function () {
+			describe('with duplicated shortcode', function () {
 
 				beforeEach(function (){
-					payload = { url: 'http://example.com/coll-url', shortcode: '1kGJrn'};
+					payload = { url: 'http://example.com/coll-url', shortcode: existedShortcode.shortcode};
 				});
 
 				beforeEach(function (done) {
@@ -92,7 +105,7 @@ describe('shorterns.spec.js', function () {
 				});
 			});
 
-			describe('and shortcode does not meet regex expression: ^[0-9a-zA-Z_]{4,}$', function () {
+			describe('with shortcode that does not meet regex expression: ^[0-9a-zA-Z_]{4,}$', function () {
 				beforeEach(function (){
 					payload = { url: 'http://example.com/coll-url', shortcode: '1uK&tms'};
 				});
@@ -110,13 +123,32 @@ describe('shorterns.spec.js', function () {
 					expect(response.statusCode).to.equal(422);
 				});
 			});
+
+			describe('with shortcode that meet regex expression: ^[0-9a-zA-Z_]{4,}$', function () {
+				beforeEach(function (){
+					payload = { url: 'http://example.com/coll-url', shortcode: '1uK_tms'};
+				});
+
+				beforeEach(function (done) {
+					request.post({url: url, body: payload, json:true}, function (err, res, body) {
+						response = res;
+						result = body;
+						error = err;
+						done(err);
+					});
+				});
+
+				it('should respond 201 (Created)', function () {
+					expect(response.statusCode).to.equal(201);
+				});
+			});
 		});
 	});
 
 	describe('when user requesting shortcode', function () {
 		describe('with shortcode that exist in database', function (){
 			beforeEach(function () {
-				url = apiUrl + '/1kGJrn';
+				url = apiUrl + '/' + existedShortcode.shortcode;
 			});
 
 			beforeEach(function (done) {
@@ -158,7 +190,7 @@ describe('shorterns.spec.js', function () {
 	describe('when user requesting shortcode stats', function () {
 		describe('with shortcode that exist in database', function () {
 			beforeEach(function () {
-				url = apiUrl + '/1kGJrn/stats';
+				url = apiUrl + '/' + existedShortcode.shortcode + '/stats';
 			});
 
 			beforeEach(function (done) {

@@ -30,9 +30,9 @@ function shortenService(app) {
 		var url = req.body.url;
 		var shortcode = req.body.shortcode;
 
-		shortcode ? validate() : generate();
+		shortcode ? validate() : generate(shortcode);
 		
-		function generate () {
+		function generate (shortcode) {
 			middleware.generator.generate(function (err, shortcode) {
 
 				shortcodes.create(url, {shortcode: shortcode}, function (err, shortcode) {
@@ -57,6 +57,8 @@ function shortenService(app) {
 				if (shortcode) {
 					return next({ message: 'desired shortcode is already in use', status: 409});
 				}
+
+				generate(shortcode);
 			});
 		}
 	}

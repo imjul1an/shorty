@@ -5,6 +5,7 @@ var util = require('util');
 var moment = require('moment');
 var logentries = require('node-logentries');
 var config = require('../../config');
+var sinon = require('sinon');
 
 var log = logentries.logger({
 	token: config.logentries.token
