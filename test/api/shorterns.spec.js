@@ -23,6 +23,10 @@ describe('shorterns.spec.js', function () {
 		});
 
 		describe('with wrong payload', function () {
+			beforeEach(function (){
+				payload = { url: 'http://example.com/very-long-url', shortcode:'1uK7tms'};
+			});
+
 			beforeEach(function(){
 				url = apiUrl;
 			});
@@ -72,6 +76,15 @@ describe('shorterns.spec.js', function () {
 			describe('and shortcode is duplicated', function () {
 				beforeEach(function (){
 					payload = { url: 'http://example.com/coll-url', shortcode: '1uK7tms'};
+				});
+
+				beforeEach(function (done) {
+					request.post({url: url, body: payload, json:true}, function (err, res, body) {
+						response = res;
+						result = body;
+						error = err;
+						done(err);
+					});
 				});
 
 				it('should respond 409 (Conflict)', function () {
