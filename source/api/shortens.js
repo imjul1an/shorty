@@ -78,6 +78,22 @@ function shortenService(app) {
 	}
 
 	function stats (req, res, next) {
-		res.json(200);
+		var shortcode = req.params.shortcode;
+
+		shortcodes.findByCode(shortcode, function (err, shortcode) {
+			if (err) {
+				return next({message: 'Failed to get shortcode.', err: err, status: 500 });
+			}
+
+			if(!shortcode) {
+				return next({message: 'Shortcode cannot be found.', err: err, status: 404 });
+			}
+		
+			res.json(200, {
+				startDate: shortcode.startDate,
+				lastSeenDate: shortcode.lastSeenDate,
+				redirectCount: shortcode.redirectCount
+			});
+		});
 	}
 }

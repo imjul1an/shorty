@@ -172,6 +172,18 @@ describe('shorterns.spec.js', function () {
 			it('should respond 200(OK)', function (){
 				expect(response.statusCode).to.equal(200);
 			});
+
+			it('should respond with startDate', function (){
+				expect(result.startDate).to.be.ok;
+			});
+
+			it('should respond with lastSeenDate', function (){
+				expect(result.lastSeenDate).to.be.ok;
+			});
+
+			it('should respond with redirectCount', function (){
+				expect(result.redirectCount).to.equal(0);
+			});
 		});
 	});
 });
