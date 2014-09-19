@@ -114,7 +114,7 @@ describe('shorterns.spec.js', function () {
 	});
 
 	describe('when user requesting shortcode', function () {
-		describe('and shortcode exist in database', function (){
+		describe('with shortcode that exist in database', function (){
 			beforeEach(function () {
 				url = apiUrl + '/1uK7tms';
 			});
@@ -135,10 +135,8 @@ describe('shorterns.spec.js', function () {
 				expect(result.shortcode).to.be.ok;
 			});
 		});
-	});
 
-	describe('when user requesting shortcode', function () {
-		describe('and shortcode deos not exist in database', function () {
+		describe('with shortcode that doesn not exist in database', function () {
 			beforeEach(function () {
 				url = apiUrl + '/10K0tms';
 			});
@@ -156,5 +154,4 @@ describe('shorterns.spec.js', function () {
 			});
 		});
 	});
-	
 });

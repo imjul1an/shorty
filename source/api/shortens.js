@@ -13,6 +13,9 @@ function shortenService(app) {
 	app.get('/api/shorten/:shortcode',
 		byShortcode);
 
+	app.get('/api/shorten/:shortcode/stats',
+		stats);
+
 	function validateRequest (req, res, next) {
 		var body = req.body;
 
@@ -72,5 +75,8 @@ function shortenService(app) {
 			
 			res.json(302, {location: shortcode.url});
 		});
+	}
+
+	function stats(req, res, next) {
 	}
 }
