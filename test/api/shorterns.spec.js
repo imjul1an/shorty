@@ -154,4 +154,24 @@ describe('shorterns.spec.js', function () {
 			});
 		});
 	});
+
+	// describe('when user requesting shortcode stats', function () {
+	// 	describe('with shortcode that exist in database', function () {
+	// 		beforeEach(function () {
+	// 			url = apiUrl + '/1uK7tms/stats';
+	// 		});
+
+	// 		beforeEach(function (done) {
+	// 			request({url: url, json: true}, function (err, resp, body) {
+	// 				response = resp;
+	// 				result = body;
+	// 				done(err);
+	// 			});
+	// 		});
+
+	// 		it('should respond 200()', function (){
+	// 			expect(response.statusCode).to.equal(404);
+	// 		});
+	// 	});
+	// });
 });
