@@ -1,3 +1,25 @@
+## Getting started
+First and foremost make sure that `mongodb` is installed on your environment. If not, follow instructions on [Mongodb](http://docs.mongodb.org/manual/installation/) web site.
+```bash
+$npm install
+```
+
+## Prepare environment
+Ensure index,
+```bash
+node db/ensureIndex.js
+```
+
+Run tests,
+```bash
+$npm test
+```
+
+## Deploy on production
+
+Please follow [tutorials](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-dokku-application) provided by [DigitalOcean](https://www.digitalocean.com/) to easy and super fast push `shorty` on production, just like that: `git push dokku master`
+
+
 Shorty Challenge
 ================
 
@@ -131,5 +153,4 @@ lastSeenDate      | date of the last time the a redirect was issued, not present
 Error | Description
 ----- | ------------
 404   | The ```shortcode``` cannot be found in the system
-
 
