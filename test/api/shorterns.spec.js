@@ -2,7 +2,7 @@ var request = require('request');
 var testUtils = require('../utils');
 
 describe('shorterns.spec.js', function () {
-	var apiUrl, url, payload, error, response, result, body;
+	var apiUrl, url, payload, error, response, result;
 
 	beforeEach(function () {
 		apiUrl = testUtils.getRootUrl() + '/api/shorten';
@@ -72,10 +72,10 @@ describe('shorterns.spec.js', function () {
 		});
 	
 		describe('with desired shortcode', function () {
-
 			describe('and shortcode is duplicated', function () {
+
 				beforeEach(function (){
-					payload = { url: 'http://example.com/coll-url', shortcode: '1uK7tms'};
+					payload = { url: 'http://example.com/coll-url', shortcode: '1kGJrn'};
 				});
 
 				beforeEach(function (done) {
@@ -116,7 +116,7 @@ describe('shorterns.spec.js', function () {
 	describe('when user requesting shortcode', function () {
 		describe('with shortcode that exist in database', function (){
 			beforeEach(function () {
-				url = apiUrl + '/1uK7tms';
+				url = apiUrl + '/1kGJrn';
 			});
 
 			beforeEach(function (done) {
@@ -132,7 +132,7 @@ describe('shorterns.spec.js', function () {
 			});
 
 			it('should respond with location', function(){
-				expect(result.shortcode).to.be.ok;
+				expect(result.location).to.be.ok;
 			});
 		});
 
@@ -155,23 +155,23 @@ describe('shorterns.spec.js', function () {
 		});
 	});
 
-	// describe('when user requesting shortcode stats', function () {
-	// 	describe('with shortcode that exist in database', function () {
-	// 		beforeEach(function () {
-	// 			url = apiUrl + '/1uK7tms/stats';
-	// 		});
+	describe('when user requesting shortcode stats', function () {
+		describe('with shortcode that exist in database', function () {
+			beforeEach(function () {
+				url = apiUrl + '/1kGJrn/stats';
+			});
 
-	// 		beforeEach(function (done) {
-	// 			request({url: url, json: true}, function (err, resp, body) {
-	// 				response = resp;
-	// 				result = body;
-	// 				done(err);
-	// 			});
-	// 		});
+			beforeEach(function (done) {
+				request({url: url, json: true}, function (err, resp, body) {
+					response = resp;
+					result = body;
+					done(err);
+				});
+			});
 
-	// 		it('should respond 200()', function (){
-	// 			expect(response.statusCode).to.equal(404);
-	// 		});
-	// 	});
-	// });
+			it('should respond 200(OK)', function (){
+				expect(response.statusCode).to.equal(200);
+			});
+		});
+	});
 });
