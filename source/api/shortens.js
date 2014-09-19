@@ -28,6 +28,7 @@ function shortenService(app) {
 		
 		function generate () {
 			middleware.generator.generate(function (err, shortcode) {
+
 				shortcodes.create(url, {shortcode: shortcode}, function (err, shortcode) {
 					if (err) {
 						return next(err);
