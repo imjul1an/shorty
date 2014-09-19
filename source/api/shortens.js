@@ -24,20 +24,9 @@ function shortenService(app) {
 		var url = req.body.url;
 		var shortcode = req.body.shortcode;
 
-		if(shortcode) {
-			shortcodes.findByCode(shortcode, function(err, shortcode) {
-				if (err) {
-					return next (err);
-				}
-				if (shortcode) {
-					return next({message: 'desired shortcode is already in use', status: 409});
-				}
-			});
-		}
-
-		generate();
-
-		function generate() {
+		shortcode ? validate() : generate();
+		
+		function generate () {
 			middleware.generator.generate(function (err, shortcode) {
 				shortcodes.create(url, {shortcode: shortcode}, function (err, shortcode) {
 					if (err) {
@@ -46,6 +35,21 @@ function shortenService(app) {
 
 					res.json(201, {shortcode: shortcode});
 				});
+			});
+		}
+
+		function validate () {
+			if (!middleware.generator.valid(shortcode)) {
+				return next({ message:'the shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$', status: 422 });
+			}
+
+			shortcodes.findByCode(shortcode, function(err, shortcode) {
+				if (err) {
+					return next (err);
+				}
+				if (shortcode) {
+					return next({ message: 'desired shortcode is already in use', status: 409});
+				}
 			});
 		}
 	}
