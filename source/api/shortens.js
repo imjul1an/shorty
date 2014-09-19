@@ -10,6 +10,9 @@ function shortenService(app) {
 		validateRequest,
 		shortify);
 
+	app.get('/api/shorten/:shortcode',
+		byShortcode);
+
 	function validateRequest (req, res, next) {
 		var body = req.body;
 
@@ -53,5 +56,21 @@ function shortenService(app) {
 				}
 			});
 		}
+	}
+
+	function byShortcode(req, res, next) {
+		var shortcode = req.params.shortcode;
+
+		shortcodes.findByCode(shortcode, function (err, shortcode) {
+			if (err) {
+				return next({message: 'Failed to get shortcode.', err: err, status: 500 });
+			}
+
+			if(!shortcode) {
+				return next({message: 'Shortcode cannot be found.', err: err, status: 404 });
+			}
+			
+			res.json(302, {location: shortcode.url});
+		});
 	}
 }

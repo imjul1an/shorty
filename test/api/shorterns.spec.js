@@ -114,7 +114,47 @@ describe('shorterns.spec.js', function () {
 	});
 
 	describe('when user requesting shortcode', function () {
+		describe('and shortcode exist in database', function (){
+			beforeEach(function () {
+				url = apiUrl + '/1uK7tms';
+			});
 
+			beforeEach(function (done) {
+				request({url: url, json: true}, function (err, resp, body) {
+					response = resp;
+					result = body;
+					done(err);
+				});
+			});
+
+			it('should respond 302(Found)', function (){
+				expect(response.statusCode).to.equal(302);
+			});
+
+			it('should respond with location', function(){
+				expect(result.shortcode).to.be.ok;
+			});
+		});
+	});
+
+	describe('when user requesting shortcode', function () {
+		describe('and shortcode deos not exist in database', function () {
+			beforeEach(function () {
+				url = apiUrl + '/10K0tms';
+			});
+
+			beforeEach(function (done) {
+				request({url: url, json: true}, function (err, resp, body) {
+					response = resp;
+					result = body;
+					done(err);
+				});
+			});
+
+			it('should respond 404(Not Found)', function (){
+				expect(response.statusCode).to.equal(404);
+			});
+		});
 	});
 	
 });
