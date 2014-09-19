@@ -185,5 +185,23 @@ describe('shorterns.spec.js', function () {
 				expect(result.redirectCount).to.equal(0);
 			});
 		});
+
+		describe('with shortcode that does not exist in database', function () {
+			beforeEach(function () {
+				url = apiUrl + '/100Jrn/stats';
+			});
+
+			beforeEach(function (done) {
+				request({url: url, json: true}, function (err, resp, body) {
+					response = resp;
+					result = body;
+					done(err);
+				});
+			});
+
+			it('should respond 404 (Not Found)', function (){
+				expect(response.statusCode).to.equal(404);
+			});
+		});
 	});
 });
