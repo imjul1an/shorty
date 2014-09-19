@@ -30,7 +30,7 @@ function shortenService(app) {
 		var url = req.body.url;
 		var shortcode = req.body.shortcode;
 
-		shortcode ? validate() : generate(shortcode);
+		shortcode ? validate(shortcode) : generate(shortcode);
 		
 		function generate (shortcode) {
 			middleware.generator.generate(function (err, shortcode) {
@@ -45,7 +45,7 @@ function shortenService(app) {
 			});
 		}
 
-		function validate () {
+		function validate (shortcode) {
 			if (!middleware.generator.valid(shortcode)) {
 				return next({ message:'the shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$', status: 422 });
 			}
