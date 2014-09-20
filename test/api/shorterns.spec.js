@@ -150,6 +150,10 @@ describe('shorterns.spec.js', function () {
 			it('should respond with location', function(){
 				expect(result.location).to.be.ok;
 			});
+
+			it('should increment count of seeing url', function () {
+				expect(result.redirectCount).to.equal(1);
+			});
 		});
 
 		describe('and shortcode that doesn not exist in database', function () {
