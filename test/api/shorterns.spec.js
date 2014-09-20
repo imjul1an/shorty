@@ -69,7 +69,7 @@ describe('shorterns.spec.js', function () {
 		});
 	});
 
-	describe('with desired shortcode', function () {
+	describe('when user provide desired shortcode', function () {
 		describe('and shortcode is duplicated', function () {
 
 			beforeEach(function (){
