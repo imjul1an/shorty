@@ -74,8 +74,14 @@ function shortenService(app) {
 			if(!shortcode) {
 				return next({message: 'Shortcode cannot be found.', err: err, status: 404 });
 			}
-			
-			res.json(302, {location: shortcode.url});
+
+			shortcodes.update(shortcode.shortcode, function (err, updatedShortcode) {
+				if (err) {
+					return next({message: 'Failed to update shortcode', err: err, status: 500 });
+				}
+
+				res.json(302, {location: updatedShortcode.url, redirectCount: updatedShortcode.redirectCount});
+			});
 		});
 	}
 

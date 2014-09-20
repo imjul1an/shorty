@@ -8,6 +8,7 @@ var ObjectId = require('mongojs').ObjectId;
 
 module.exports = {
 	create: create,
+	update: update,
 	findById: findById,
 	findByCode: findByCode,
 	clearCollection: clearCollection
@@ -33,4 +34,12 @@ function findByCode (shortcode, callback) {
 
 function clearCollection (callback) {
 	db.shortcodes.remove(callback);
+}
+
+function update(shortcode, callback) {
+	db.shortcodes.findAndModify({
+			query: {shortcode: shortcode},
+			update: {$inc: {redirectCount: 1}},
+			'new': true
+	}, callback);
 }
