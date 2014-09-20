@@ -15,7 +15,7 @@ module.exports = {
 };
 
 function create (url, shortcode, callback) {
-	var ext =  { url: url, startDate: moment().toDate(), lastSeenDate: moment().toDate(), redirectCount: 0};
+	var ext =  { url: url, startDate: moment().toDate(), redirectCount: 0};
 	shortcode = _.extend(shortcode, ext);
 	db.shortcodes.save(shortcode, callback);
 }
@@ -37,9 +37,15 @@ function clearCollection (callback) {
 }
 
 function update(shortcode, callback) {
-	db.shortcodes.findAndModify({
+	db.shortcodes.update({shortcode: shortcode}, {$set: {lastSeenDate: moment().toDate()}}, {multi: true}, function (err, count) {
+		if (err) {
+			return callback(err);
+		}
+
+		db.shortcodes.findAndModify({
 			query: {shortcode: shortcode},
 			update: {$inc: {redirectCount: 1}},
 			'new': true
-	}, callback);
+		}, callback);
+	});
 }
