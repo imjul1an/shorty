@@ -202,7 +202,7 @@ describe('shorterns.spec.js', function () {
 			});
 
 			it('should respond with redirectCount', function (){
-				expect(result.redirectCount).to.be.above(1);
+				expect(result.redirectCount).to.be.above(0);
 			});
 		});
 
