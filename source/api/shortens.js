@@ -1,6 +1,6 @@
 "use strict";
 
-var middleware = require('../middleware');
+var generator = require('../utils/generator');
 var shortcodes = require('../models/shortcodes');
 
 module.exports = shortenService;
@@ -33,7 +33,7 @@ function shortenService(app) {
 		shortcode ? validate(shortcode) : generate(shortcode);
 		
 		function generate (shortcode) {
-			middleware.generator.generate(function (err, shortcode) {
+			generator.generate(function (err, shortcode) {
 
 				shortcodes.create(url, {shortcode: shortcode}, function (err, shortcode) {
 					if (err) {
@@ -46,7 +46,7 @@ function shortenService(app) {
 		}
 
 		function validate (shortcode) {
-			if (!middleware.generator.valid(shortcode)) {
+			if (!generator.valid(shortcode)) {
 				return next({ message:'the shortcode fails to meet the following regexp: ^[0-9a-zA-Z_]{4,}$', status: 422 });
 			}
 

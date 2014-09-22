@@ -1,6 +1,6 @@
 var config = require('../config');
 var shortcodes = require('../source/models/shortcodes');
-var middleware = require('../source/middleware');
+var generator = require('../source/utils/generator');
 
 module.exports = {
 	getRootUrl: getRootUrl,
@@ -17,7 +17,7 @@ function clearCollection (callback) {
 }
 
 function createTestShortCode (callback) {
-	middleware.generator.generate(function (err, shortcode) {
+	generator.generate(function (err, shortcode) {
 		shortcodes.create('http://example.com/very-long-url', {shortcode: 'EWB0bZ'}, function (err, shortcode) {
 			if (err) {
 				return callback(err);
