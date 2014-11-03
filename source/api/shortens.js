@@ -29,8 +29,6 @@ function shortenService(app) {
 	function shortify (req, res, next) {
 		var url = req.body.url;
 		var shortcode = req.body.shortcode;
-
-		shortcode ? validate(shortcode) : generate(shortcode);
 		
 		function generate (shortcode) {
 			generator.generate(function (err, shortcode) {
@@ -61,6 +59,8 @@ function shortenService(app) {
 				generate(shortcode);
 			});
 		}
+
+		return shortcode ? validate(shortcode) : generate(shortcode);
 	}
 
 	function byShortcode(req, res, next) {

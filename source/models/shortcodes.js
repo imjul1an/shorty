@@ -37,7 +37,7 @@ function clearCollection (callback) {
 }
 
 function update(shortcode, callback) {
-	db.shortcodes.update({shortcode: shortcode}, {$set: {lastSeenDate: moment().toDate()}}, {multi: true}, function (err, count) {
+	db.shortcodes.update({shortcode: shortcode}, {$set: {lastSeenDate: moment().toDate()}}, function (err, count) {
 		if (err) {
 			return callback(err);
 		}
